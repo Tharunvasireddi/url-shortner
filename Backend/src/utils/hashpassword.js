@@ -11,7 +11,7 @@ const hassPassword = async (password) => {
 
 const verifyPassword = async (storedPassword, enteredPassword) => {
   try {
-    const isPasswordMatch = await verifyPassword(
+    const isPasswordMatch = await argon2.verify(
       storedPassword,
       enteredPassword
     );

@@ -1,22 +1,30 @@
-import jwt from "jsonwebtoken";
 import { signToken } from "../utils/helper.js";
-import { findUserByEmail } from "../dao/user_doa.js";
+import { findUserByEmail, findUserByName } from "../dao/user_doa.js";
 import { createUser } from "../dao/user_doa.js";
+import { NotFoundError, ConflictError } from "../utils/errorhandler.js";
+import { verifyPassword } from "../utils/hashpassword.js";
 
-const regiserUser = async (name, email, password) => {
+const registerUser = async (name, email, password) => {
   const isUserExisted = await findUserByEmail(email);
   if (isUserExisted) {
     throw new ConflictError("user already existed");
   }
   const newUser = await createUser(email, name, password);
-  if (!newUser) {
-    return res.status.json({
-      success: false,
-      message: "failed to register user ",
-    });
-  }
   const token = await signToken({ id: newUser._id });
-  return { token, newUser };
+  return token;
 };
 
-export { regiserUser };
+const loginUser = async (name, password) => {
+  const user = await findUserByName(name);
+  if (!user) {
+    throw new NotFoundError("user not found");
+  }
+  const isPassWordMatch = await verifyPassword(user.password, password);
+  if (!isPassWordMatch) {
+    throw new ConflictError("incorrect password ");
+  }
+  const token = await signToken({ id: user._id });
+  return token;
+};
+
+export { registerUser, loginUser };

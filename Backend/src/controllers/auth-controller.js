@@ -1,13 +1,23 @@
-import { createUser, findUserByEmail } from "../dao/user_doa.js";
-import { regiserUser } from "../services/auth-service.js";
-import { ConflictError } from "../utils/errorhandler.js";
+import { cookieOptions } from "../config/config.js";
+import { loginUser, registerUser } from "../services/auth-service.js";
 import wrapAsync from "../utils/tryCatchWrafer.js";
-import jwt from "jsonwebtoken";
 
 const registerConroller = wrapAsync(async (req, res) => {
   const { name, email, password } = req.body;
-  const { token, user } = regiserUser(name, email, password);
-  req.user = user;
+  const token = await registerUser(name, email, password);
+  res.cookie("accesstoken", token, cookieOptions);
+
+  res.status(200).json({
+    message: " user registered  successfully",
+  });
 });
-const loginController = wrapAsync(async (req, res) => {});
+const loginController = wrapAsync(async (req, res) => {
+  const { name, password } = req.body;
+  const token = await loginUser(name, password);
+  res.cookie("accesstoken", token, cookieOptions);
+
+  res.status(200).json({
+    message: " user logined  successfully",
+  });
+});
 export { registerConroller, loginController };

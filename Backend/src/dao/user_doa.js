@@ -9,11 +9,15 @@ const findUserById = async (id) => {
   return await User.findById(id);
 };
 
+const findUserByName = async (name) => {
+  return await User.findOne({ name });
+};
+
 const createUser = async (email, name, password) => {
   const hashedPassword = await hassPassword(password);
-  const newUser = new User({ name, email, password :hashedPassword });
+  const newUser = new User({ name, email, password: hashedPassword });
   await newUser.save();
   return newUser;
 };
 
-export { findUserByEmail, findUserById, createUser };
+export { findUserByEmail, findUserById, createUser, findUserByName };
