@@ -6,6 +6,7 @@ import {
 } from "./routes/shorturl-router.js";
 import cors from "cors";
 import { errorHandler } from "./utils/errorhandler.js";
+import { authRouter } from "./routes/auth-router.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +23,7 @@ app.use(
 );
 
 // routes
+app.use("/api/auth", authRouter);
 app.use("/api", createShortUrlRouter);
 app.use("/api", redirectFromShortUrlRouter);
 
