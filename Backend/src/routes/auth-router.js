@@ -6,7 +6,7 @@ import {
 
 const authRouter = express.Router();
 
-authRouter.post("/regiser", registerConroller);
+authRouter.post("/register", registerConroller);
 authRouter.post("/login", loginController);
 
 export { authRouter };
