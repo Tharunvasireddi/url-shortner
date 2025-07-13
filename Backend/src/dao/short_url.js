@@ -7,8 +7,11 @@ const saveShortUrl = async (short_url, full_url, userId) => {
       full_url: full_url,
       short_url: short_url,
     });
+    console.log("i am new usrl", newUrl);
+    console.log(userId);
     if (userId) {
       newUrl.user = userId;
+      console.log(" i am updates");
     }
     await newUrl.save();
   } catch (error) {
