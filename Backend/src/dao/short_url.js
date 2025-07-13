@@ -10,9 +10,9 @@ const saveShortUrl = async (short_url, full_url, userId) => {
     if (userId) {
       newUrl.user = userId;
     }
-  await  newUrl.save();
+    await newUrl.save();
   } catch (error) {
-    console.log("this is a new error",error);
+    console.log("this is a new error", error);
     if (error.code == 11000) {
       throw new ConflictError("short url already exist");
     }
@@ -30,4 +30,8 @@ const getShortUrl = async (short_url) => {
   return url;
 };
 
-export { saveShortUrl, getShortUrl };
+const getCustomShortUrl = async (slug) => {
+  return await shortUrl.findOne({ short_url: slug });
+};
+
+export { saveShortUrl, getShortUrl, getCustomShortUrl };

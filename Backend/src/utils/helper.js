@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { cookieOptions } from "../config/config.js";
 dotenv.config();
-const generateNanoId = async (length) => {
+const generateNanoId =  (length) => {
   return nanoid(length);
 };
 

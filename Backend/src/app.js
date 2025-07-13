@@ -7,9 +7,13 @@ import {
 import cors from "cors";
 import { errorHandler } from "./utils/errorhandler.js";
 import { authRouter } from "./routes/auth-router.js";
+import cookieParser from "cookie-parser";
+import { attachUser } from "./utils/attchuser.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser);
+app.use(attachUser);
 
 // database connecion
 connectDb();
