@@ -14,11 +14,12 @@ const registerController = wrapAsync(async (req, res) => {
 });
 const loginController = wrapAsync(async (req, res) => {
   const { name, password } = req.body;
-  const token = await loginUser(name, password);
+  const { token, user } = await loginUser(name, password);
   res.cookie("accesstoken", token, cookieOptions);
 
   res.status(200).json({
     message: " user logined  successfully",
+    user: user,
   });
 });
 export { registerController, loginController };

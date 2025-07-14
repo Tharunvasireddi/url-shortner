@@ -14,18 +14,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-//   avatar: {
-//     type: String,
-//     required: true,
-//     default: function () {
-//       return get;
-//     },
-//   },
+  avatar: {
+    type: String,
+    required: true,
+    default:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp",
+  },
 });
-// function getGravatarUrl(email) {
-//   import hash from
-// }
 
+userSchema.set("toJSON", {
+  transform: function (doc, ret) {
+    delete ret.password;
+    delete ret.__v;
+    return ret;
+  },
+});
 const User = mongoose.model("User", userSchema);
 
 export { User };

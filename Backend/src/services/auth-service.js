@@ -24,7 +24,7 @@ const loginUser = async (name, password) => {
     throw new ConflictError("incorrect password ");
   }
   const token = await signToken({ id: user._id });
-  return token;
+  return {token,user};
 };
 
 export { registerUser, loginUser };

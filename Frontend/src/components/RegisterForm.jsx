@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../api/userapi";
+import { useNavigate } from "@tanstack/react-router";
 
 const RegisterForm = ({ state }) => {
   const [name, setName] = useState("");
@@ -7,7 +8,7 @@ const RegisterForm = ({ state }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const navigae = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -15,6 +16,7 @@ const RegisterForm = ({ state }) => {
     try {
       await registerUser(name, email, password);
       setLoading(true);
+      navigae({ to: "/Login" });
     } catch (err) {
       setLoading(false);
       setError(
@@ -105,7 +107,10 @@ const RegisterForm = ({ state }) => {
         </button>
         <div className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <span onClick={() => state(true)} className="text-blue-600 underline cursor-pointer ">
+          <span
+            onClick={() => state(true)}
+            className="text-blue-600 underline cursor-pointer "
+          >
             Login here
           </span>
         </div>
