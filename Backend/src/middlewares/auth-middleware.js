@@ -1,10 +1,11 @@
 import { findUserById } from "../dao/user_doa.js";
 import { verifyToken } from "../utils/helper.js";
 
-const authMiddleware = async (req, resizeBy, next) => {
-  const token = req.cookies.accessToken;
+const authMiddleware = async (req, res, next) => {
+  const token = req.cookies.accesstoken;
+  console.log(req.cookies);
   if (!token) {
-    return resizeBy.status(400).json({
+    return res.status(400).json({
       message: "token is not found ",
     });
   }
@@ -12,7 +13,7 @@ const authMiddleware = async (req, resizeBy, next) => {
     const decoded = verifyToken(token);
     const user = await findUserById(decoded.id);
     if (!user) {
-      return resizeBy.status(401).json({
+      return res.status(401).json({
         message: "Unauthorized",
       });
     }

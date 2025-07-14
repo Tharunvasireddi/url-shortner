@@ -1,9 +1,9 @@
 import { createRoute } from "@tanstack/react-router";
-import RootLayout from "../App";
 import LoginForm from "../components/LoginForm";
+import { rootRoute } from "./routeTree";
 
 const loginRoute = createRoute({
-  getParentRoute: () => RootLayout,
+  getParentRoute: () => rootRoute,
   path: "/Login",
   component: LoginForm,
 });

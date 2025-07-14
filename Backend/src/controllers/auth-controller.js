@@ -22,4 +22,10 @@ const loginController = wrapAsync(async (req, res) => {
     user: user,
   });
 });
-export { registerController, loginController };
+
+const get_current_user = wrapAsync(async (req, res) => {
+  res.status(200).json({
+    user: req.user,
+  });
+});
+export { registerController, loginController, get_current_user };
