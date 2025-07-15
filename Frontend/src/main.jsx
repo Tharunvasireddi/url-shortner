@@ -6,8 +6,8 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routing/routeTree.js";
 import store from "./store/store.js";
-const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
+const router = createRouter({ routeTree, context: { queryClient, store } });
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
