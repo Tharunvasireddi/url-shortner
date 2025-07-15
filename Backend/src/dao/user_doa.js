@@ -1,3 +1,4 @@
+import { shortUrl } from "../models/shorturlmodel.js";
 import { User } from "../models/usermodel.js";
 import { hassPassword } from "../utils/hashpassword.js";
 
@@ -20,4 +21,18 @@ const createUser = async (email, name, password) => {
   return newUser;
 };
 
-export { findUserByEmail, findUserById, createUser, findUserByName };
+const getAllUrls = async (id) => {
+  return await shortUrl.find({ user: id });
+};
+const deleteUrl = async (id) => {
+  return await shortUrl.findByIdAndDelete({ _id: id });
+};
+
+export {
+  findUserByEmail,
+  findUserById,
+  createUser,
+  findUserByName,
+  getAllUrls,
+  deleteUrl,
+};

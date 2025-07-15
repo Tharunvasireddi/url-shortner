@@ -17,10 +17,8 @@ const LoginForm = ({ state }) => {
     setError("");
     try {
       const data = await loginUser(name, password);
-      console.log(data);
       dispatch(login(data.user));
       navigate({ to: "/dashboard" });
-      console.log(auth);
       setLoading(false);
     } catch (error) {
       setLoading(false);

@@ -6,6 +6,7 @@ import {
   createShortUrlWithUser,
 } from "../services/createShortUrl-service.js";
 import wrapAsync from "../utils/tryCatchWrafer.js";
+import { shortUrl } from "../models/shorturlmodel.js";
 const shortUrlController = wrapAsync(async (req, res) => {
   const data = req.body;
   console.log(data);
@@ -15,6 +16,7 @@ const shortUrlController = wrapAsync(async (req, res) => {
       message: "url is not found",
     });
   }
+
   let short_url;
   console.log("hi hello", req.user._id);
   if (req.user) {
@@ -30,7 +32,6 @@ const shortUrlController = wrapAsync(async (req, res) => {
 const redirectFromShortUrlController = wrapAsync(async (req, res) => {
   console.log("hi this redirect controller");
   const short_url = req.params.id;
-  console.log(short_url);
   const url = await getShortUrl(short_url);
   console.log(url);
   res.redirect(url.full_url);

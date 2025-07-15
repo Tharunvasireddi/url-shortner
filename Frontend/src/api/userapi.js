@@ -24,3 +24,13 @@ export const getCurrentUser = async () => {
   const { data } = await axiosInstance.get("/api/auth/me");
   return data;
 };
+
+export const getUserUrls = async () => {
+  const data = await axiosInstance.get("api/get/urls");
+  return data;
+};
+
+export const deleteUrl = async (id) => {
+  const res = await axiosInstance.delete(`api/get/delete/${id}`);
+  return res;
+};
