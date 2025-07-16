@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
-import { rootRoute } from "./routeTree";
-import AuthPage from "../pages/AuthPage";
-import RegisterForm from "../components/RegisterForm";
+import { rootRoute } from "./routeTree.js";
+import RegisterForm from "../components/RegisterForm.jsx";
 const regiserRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/Register",
