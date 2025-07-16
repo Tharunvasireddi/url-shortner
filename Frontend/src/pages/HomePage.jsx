@@ -1,6 +1,5 @@
-import React from "react";
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-12 min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-3xl w-full text-gray-800">
@@ -30,4 +29,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export  {HomePage};
