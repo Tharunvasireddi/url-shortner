@@ -10,6 +10,9 @@ import { authRouter } from "./routes/auth-router.js";
 import cookieParser from "cookie-parser";
 import { attachUser } from "./utils/attchuser.js";
 import { userRouer } from "./routes/user-router.js";
+import { dotenv } from "dotenv";
+
+dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,3 +39,8 @@ app.use("/api/get", userRouer);
 // error handler
 app.use(errorHandler);
 
+const port = process.env.PORT;
+
+app.listen(port, () => {
+  console.lof("server is running on the port");
+});
