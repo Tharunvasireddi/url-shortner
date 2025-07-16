@@ -39,7 +39,7 @@ app.use("/api/get", userRouer);
 // error handler
 app.use(errorHandler);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 10000;
 
 app.listen(port, () => {
   console.lof("server is running on the port");
