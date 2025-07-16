@@ -5,7 +5,7 @@ import { HomePage } from "../pages/Homepage";
 const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: HomePage,
+  component:HomePage,
 });
 
 export { homeRoute };
