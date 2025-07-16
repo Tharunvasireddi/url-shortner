@@ -10,7 +10,7 @@ import { authRouter } from "./routes/auth-router.js";
 import cookieParser from "cookie-parser";
 import { attachUser } from "./utils/attchuser.js";
 import { userRouer } from "./routes/user-router.js";
-import { dotenv } from "dotenv";
+import  dotenv  from "dotenv";
 
 dotenv.config();
 const app = express();
