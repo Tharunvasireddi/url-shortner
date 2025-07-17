@@ -16,15 +16,13 @@ dotenv.config();
 const app = express();
 
 // cors
-const corsOptions = {
-  origin: "https://url-shortner-three-xi.vercel.app",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+app.use(
+  cors({
+    origin: "https://url-shortner-three-xi.vercel.app",
+    credentials: true,
+  })
+);
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
 // middlewares
 app.use(express.json());
