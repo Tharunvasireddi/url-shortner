@@ -25,7 +25,7 @@ connectDb();
 // cors
 app.use(
   cors({
-    origin: "url-shortner-three-xi.vercel.app",
+    origin: "https://url-shortner-three-xi.vercel.app",
 
     credentials: true,
   })
