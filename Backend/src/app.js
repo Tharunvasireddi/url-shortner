@@ -23,10 +23,7 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
