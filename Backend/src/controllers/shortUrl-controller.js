@@ -9,7 +9,6 @@ import wrapAsync from "../utils/tryCatchWrafer.js";
 import { shortUrl } from "../models/shorturlmodel.js";
 const shortUrlController = wrapAsync(async (req, res) => {
   const data = req.body;
-  console.log(data);
   if (!data) {
     return res.status(400).json({
       status: false,
@@ -18,7 +17,6 @@ const shortUrlController = wrapAsync(async (req, res) => {
   }
 
   let short_url;
-  console.log("hi hello", req.user._id);
   if (req.user) {
     short_url = await createShortUrlWithUser(data.url, req.user._id, data.slug);
   } else {
@@ -30,10 +28,8 @@ const shortUrlController = wrapAsync(async (req, res) => {
 });
 
 const redirectFromShortUrlController = wrapAsync(async (req, res) => {
-  console.log("hi this redirect controller");
   const short_url = req.params.id;
   const url = await getShortUrl(short_url);
-  console.log(url);
   res.redirect(url.full_url);
 });
 export { shortUrlController, redirectFromShortUrlController };

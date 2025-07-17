@@ -7,11 +7,8 @@ const saveShortUrl = async (short_url, full_url, userId) => {
       full_url: full_url,
       short_url: short_url,
     });
-    console.log("i am new usrl", newUrl);
-    console.log(userId);
     if (userId) {
       newUrl.user = userId;
-      console.log(" i am updates");
     }
     await newUrl.save();
   } catch (error) {
@@ -19,13 +16,11 @@ const saveShortUrl = async (short_url, full_url, userId) => {
     if (error.code == 11000) {
       throw new ConflictError("short url already exist");
     }
-    console.log("hi i am doa error");
     throw new Error(error);
   }
 };
 
 const getShortUrl = async (short_url) => {
-  console.log(short_url);
   const url = await shortUrl.findOneAndUpdate(
     { short_url },
     { $inc: { clicks: 1 } }

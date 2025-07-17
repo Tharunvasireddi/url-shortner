@@ -8,7 +8,6 @@ const generateNanoId = (length) => {
 };
 
 const signToken = async (playLoad) => {
-  console.log(playLoad);
   return jwt.sign(
     { playLoad },
     process.env.JWT_SECRET_KEY,

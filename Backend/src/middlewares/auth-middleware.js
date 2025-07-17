@@ -4,7 +4,6 @@ import { verifyToken } from "../utils/helper.js";
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.accesstoken;
-  console.log(req.cookies);
   if (!token) {
     return res.status(400).json({
       message: "token is not found ",
@@ -12,8 +11,7 @@ const authMiddleware = async (req, res, next) => {
   }
   try {
     const decoded = verifyToken(token);
-    const user = await findUserByName(decoded.name);
-    console.log(user);
+    const user = await findUserByName(decoded.playLoad.name);
     if (!user) {
       return res.status(401).json({
         message: "Unauthorized",
@@ -22,7 +20,6 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log("error at authmiddleware", error);
     return res.status(400).json({
       message: "unauthorized",
     });

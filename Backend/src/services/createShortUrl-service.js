@@ -9,7 +9,6 @@ const createShortUrlWithoutUser = async (url) => {
 };
 
 const createShortUrlWithUser = async (url, userId, slug = null) => {
-  console.log(userId);
   const short_url = slug ? slug : generateNanoId(7);
   const exists = await getCustomShortUrl(slug);
   if (exists) throw new Error("This is already existed");

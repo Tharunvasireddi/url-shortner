@@ -19,7 +19,6 @@ const getUrlsController = wrapAsync(async (req, res) => {
 
 const deleteUrlController = wrapAsync(async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const url = await deleteUrl(id);
   if (!url) {
     return res.status(400).json({
