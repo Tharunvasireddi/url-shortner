@@ -1,4 +1,5 @@
-import { findUserById } from "../dao/user_doa.js";
+import { decode } from "jsonwebtoken";
+import { findUserById, findUserByName } from "../dao/user_doa.js";
 import { verifyToken } from "../utils/helper.js";
 
 const authMiddleware = async (req, res, next) => {
@@ -11,7 +12,8 @@ const authMiddleware = async (req, res, next) => {
   }
   try {
     const decoded = verifyToken(token);
-    const user = await findUserById(decoded.id);
+    const user = await findUserByName(decoded.name);
+    console.log(user);
     if (!user) {
       return res.status(401).json({
         message: "Unauthorized",
@@ -21,7 +23,7 @@ const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("error at authmiddleware", error);
-    return resizeBy.status(400).json({
+    return res.status(400).json({
       message: "unauthorized",
     });
   }

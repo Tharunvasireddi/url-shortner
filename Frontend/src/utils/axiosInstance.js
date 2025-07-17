@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://url-shortner-umeg.onrender.com",
+  baseURL: "http://localhost:10000",
   timeout: 5000,
   withCredentials: true,
 });
@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use(
       const { status, data } = error.response;
 
       switch (status) {
-        case 400:
+        case 400: // https://url-shortner-2zxk.vercel.app/
           console.error("Bad Request:", data);
           break;
         case 401:

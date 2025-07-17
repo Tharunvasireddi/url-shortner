@@ -23,8 +23,8 @@ const loginUser = async (name, password) => {
   if (!isPassWordMatch) {
     throw new ConflictError("incorrect password ");
   }
-  const token = await signToken({ id: user._id });
-  return {token,user};
+  const token = await signToken({ name });
+  return { token, user };
 };
 
 export { registerUser, loginUser };

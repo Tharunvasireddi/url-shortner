@@ -25,7 +25,8 @@ connectDb();
 // cors
 app.use(
   cors({
-    origin: "https://url-shortner-2zxk.vercel.app",
+    origin: " http://localhost:5174",
+    // origin: "https://url-shortner-2zxk.vercel.app",
     credentials: true,
   })
 );
