@@ -20,9 +20,10 @@ app.use(
   cors({
     origin: "https://url-shortner-three-xi.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 
 // middlewares
 app.use(express.json());
