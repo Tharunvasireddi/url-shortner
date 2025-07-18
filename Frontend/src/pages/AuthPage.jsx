@@ -4,6 +4,10 @@ import RegisterForm from "../components/RegisterForm";
 
 const AuthPage = () => {
   const [login, setLogin] = useState(false);
-  return (login) ?( <LoginForm state={setLogin}/>) : (<RegisterForm state={setLogin}/>);
-}
+  return login ? (
+    <LoginForm state={setLogin} />
+  ) : (
+    <RegisterForm state={setLogin} />
+  );
+};
 export default AuthPage;

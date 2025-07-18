@@ -1,16 +1,16 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import { connectDb } from "./config/mongo.config.js";
+import { authRouter } from "./routes/auth-router.js";
 import {
   createShortUrlRouter,
   redirectFromShortUrlRouter,
 } from "./routes/shorturl-router.js";
-import cors from "cors";
-import { errorHandler } from "./utils/errorhandler.js";
-import { authRouter } from "./routes/auth-router.js";
-import cookieParser from "cookie-parser";
-import { attachUser } from "./utils/attchuser.js";
 import { userRouer } from "./routes/user-router.js";
-import dotenv from "dotenv";
+import { attachUser } from "./utils/attchuser.js";
+import { errorHandler } from "./utils/errorhandler.js";
 
 dotenv.config();
 const app = express();
@@ -18,11 +18,13 @@ const app = express();
 // cors
 app.use(
   cors({
-    origin: "https://url-shortner-three-xi.vercel.app",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://url-shortner-three-xi.vercel.app"
+        : "http://localhost:5173",
     credentials: true,
   })
 );
-
 
 // middlewares
 app.use(express.json());
@@ -42,8 +44,8 @@ app.use("/api/get", userRouer);
 // error handler
 app.use(errorHandler);
 
-const port = process.env.PORT || 10000;
+const port = process.env.NODE_ENV === "production" ? 10000 : 3000;
 
 app.listen(port, () => {
-  console.log("server is running on the port");
+  console.log("server is running on the port", port);
 });
