@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { registerUser } from "../api/userapi";
 import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { registerUser } from "../api/userapi";
 
 const RegisterForm = ({ state }) => {
   const [name, setName] = useState("");
