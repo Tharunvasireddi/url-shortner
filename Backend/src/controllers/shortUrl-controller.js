@@ -6,7 +6,6 @@ import {
   createShortUrlWithUser,
 } from "../services/createShortUrl-service.js";
 import wrapAsync from "../utils/tryCatchWrafer.js";
-import { shortUrl } from "../models/shorturlmodel.js";
 const shortUrlController = wrapAsync(async (req, res) => {
   const data = req.body;
   if (!data) {
@@ -17,7 +16,6 @@ const shortUrlController = wrapAsync(async (req, res) => {
   }
 
   let short_url;
-  console.log(req.user);
   if (req.user) {
     short_url = await createShortUrlWithUser(data.url, req.user._id, data.slug);
   } else {
