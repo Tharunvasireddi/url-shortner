@@ -6,7 +6,8 @@ export const attachUser = async (req, res, next) => {
   if (!token) return next();
   try {
     const decoded = verifyToken(token);
-    const user = await findUserById(decoded.id);
+    // Use the correct token structure with playLoad wrapper
+    const user = await findUserById(decoded.playLoad.id);
     req.user = user;
     next();
   } catch (error) {

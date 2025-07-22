@@ -8,7 +8,8 @@ export const checkAuth = async ({ context }) => {
       queryKey: ["currentUser"],
       queryFn: getCurrentUser,
     });
-    if (!user) throw redirect({ o: "/Login" });
+    console.log("this is user ", user.user);
+    if (!user) throw redirect({ to: "/Login" });
     store.dispatch(login(user));
     const { isAuthenticated } = store.getState().auth;
     if (!isAuthenticated) throw redirect({ to: "/Login" });

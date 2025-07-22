@@ -16,7 +16,7 @@ export const UrlForm = () => {
   useEffect(() => {
     const fetchUrls = async () => {
       try {
-        const data = await getUserUrls();
+        const data = await getUserUrls(customSlug);
         setAllUrls(data.data.data || []);
       } catch (error) {
         console.error("Failed to fetch URLs:", error);

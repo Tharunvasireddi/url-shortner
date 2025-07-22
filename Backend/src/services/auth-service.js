@@ -10,7 +10,8 @@ const registerUser = async (name, email, password) => {
     throw new ConflictError("user already existed");
   }
   const newUser = await createUser(email, name, password);
-  const token = await signToken({ id: newUser._id });
+  // Use consistent token payload structure with both id and name
+  const token = await signToken({ id: newUser._id, name: newUser.name });
   return token;
 };
 
@@ -23,7 +24,8 @@ const loginUser = async (name, password) => {
   if (!isPassWordMatch) {
     throw new ConflictError("incorrect password ");
   }
-  const token = await signToken({ name });
+  // Use consistent token payload structure with both id and name
+  const token = await signToken({ id: user._id, name: user.name });
   return { token, user };
 };
 

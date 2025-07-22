@@ -7,7 +7,6 @@ import { authMiddleware } from "../middlewares/auth-middleware.js";
 
 const createShortUrlRouter = express.Router();
 createShortUrlRouter.post("/create", shortUrlController);
-// createShortUrlRouter.post("/create", authMiddleware, shortUrlController);
 
 const redirectFromShortUrlRouter = express.Router();
 redirectFromShortUrlRouter.get("/:id", redirectFromShortUrlController);

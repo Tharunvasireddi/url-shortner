@@ -1,27 +1,38 @@
-import { decode } from "jsonwebtoken";
-import { findUserById, findUserByName } from "../dao/user_doa.js";
+import { findUserById } from "../dao/user_doa.js";
 import { verifyToken } from "../utils/helper.js";
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.accesstoken;
   if (!token) {
-    return res.status(400).json({
-      message: "token is not found ",
+    return res.status(401).json({
+      message: "Access token not found",
     });
   }
+
   try {
     const decoded = verifyToken(token);
-    const user = await findUserByName(decoded.playLoad.name);
-    if (!user) {
+
+    // Now tokens consistently have both id and name, prefer finding by ID for better performance
+    if (!decoded.playLoad || !decoded.playLoad.id) {
       return res.status(401).json({
-        message: "Unauthorized",
+        message: "Invalid token structure",
       });
     }
+
+    const user = await findUserById(decoded.playLoad.id);
+
+    if (!user) {
+      return res.status(401).json({
+        message: "User not found",
+      });
+    }
+
     req.user = user;
     next();
   } catch (error) {
-    return res.status(400).json({
-      message: "unauthorized",
+    console.error("Auth middleware error:", error.message);
+    return res.status(401).json({
+      message: "Invalid or expired token",
     });
   }
 };

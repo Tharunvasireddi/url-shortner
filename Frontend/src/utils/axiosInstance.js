@@ -1,8 +1,7 @@
 import axios from "axios";
-
 const axiosInstance = axios.create({
   baseURL:
-    process.env.NODE_ENV === "production"
+    import.meta.env.NODE_ENV === "production"
       ? "https://url-shortner-umeg.onrender.com"
       : "http://localhost:3000",
   timeout: 5000,
