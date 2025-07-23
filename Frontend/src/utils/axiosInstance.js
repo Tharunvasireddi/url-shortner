@@ -1,9 +1,9 @@
 import axios from "axios";
 const axiosInstance = axios.create({
   baseURL:
-    import.meta.env.NODE_ENV === "production"
-      ? "https://url-shortner-8j2b.onrender.com"
-      : "http://localhost:3000",
+    // import.meta.env.NODE_ENV === "production"
+    "https://url-shortner-8j2b.onrender.com",
+  //: "http://localhost:3000",
   timeout: 5000,
   withCredentials: true,
 });
