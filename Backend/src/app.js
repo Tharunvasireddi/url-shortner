@@ -44,7 +44,7 @@ app.use("/api/get", userRouer);
 // error handler
 app.use(errorHandler);
 
-const port = process.env.NODE_ENV === "production" ? 10000 : 3000;
+const port = process.env.Port || 3000;
 
 app.listen(port, () => {
   console.log("server is running on the port", port);
