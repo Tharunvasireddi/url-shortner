@@ -2,7 +2,7 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL:
     import.meta.env.NODE_ENV === "production"
-      ? "http://url-shortner-production-0157.up.railway.app"
+      ? "https://url-shortner-8j2b.onrender.com"
       : "http://localhost:3000",
   timeout: 5000,
   withCredentials: true,
