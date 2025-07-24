@@ -10,7 +10,7 @@ export const UrlForm = () => {
   const [allUrls, setAllUrls] = useState([]);
   const [copiedMap, setCopiedMap] = useState({});
 
-  const BASE_URL = "http://localhost:3000/api";
+  const BASE_URL = "https://url-shortner-8j2b.onrender.com/api";
 
   useEffect(() => {
     const fetchUrls = async () => {

@@ -38,7 +38,7 @@ connectDb();
 // routes
 app.use("/api/auth", authRouter);
 app.use("/api/url", createShortUrlRouter);
-app.use("/api", redirectFromShortUrlRouter);
+app.use("/", redirectFromShortUrlRouter);
 app.use("/api/get", userRouer);
 
 // error handler
