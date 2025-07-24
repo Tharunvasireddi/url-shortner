@@ -20,8 +20,8 @@ app.use(
   cors({
     origin:
       // process.env.NODE_ENV === "production"
-      "https://url-shortner-three-xi.vercel.app",
-    //"http://localhost:5174",
+     "https://url-shortner-three-xi.vercel.app",
+  //"http://localhost:5174",
     credentials: true,
   })
 );
