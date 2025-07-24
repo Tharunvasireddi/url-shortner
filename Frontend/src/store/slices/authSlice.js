@@ -1,7 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let parsedUser = null;
+try {
+  const userFromStorage = localStorage.getItem("user");
+  parsedUser = userFromStorage ? JSON.parse(userFromStorage) : null;
+} catch (error) {
+  console.error("Failed to parse user from localStorage:", error);
+  localStorage.removeItem("user"); // clear corrupted data
+  parsedUser = null;
+}
+
 const initialState = {
-  user: null,
+  user: parsedUser,
   isAuthenticated: false,
 };
 
@@ -10,10 +20,17 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload;
+      const { user } = action.payload;
+      console.log("User logged in:", user);
+
+      localStorage.setItem("user", JSON.stringify(user));
+
+      state.user = user;
       state.isAuthenticated = true;
     },
     logout: (state) => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       state.user = null;
       state.isAuthenticated = false;
     },

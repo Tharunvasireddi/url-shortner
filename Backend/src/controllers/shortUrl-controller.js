@@ -16,11 +16,8 @@ const shortUrlController = wrapAsync(async (req, res) => {
   }
 
   let short_url;
-  if (req.user) {
-    short_url = await createShortUrlWithUser(data.url, req.user._id, data.slug);
-  } else {
-    short_url = await createShortUrlWithoutUser(data.url);
-  }
+
+  short_url = await createShortUrlWithUser(data.url, req.user._id, data.slug);
   res.status(200).json({ short_url: short_url });
 });
 

@@ -2,7 +2,13 @@ import { findUserById } from "../dao/user_doa.js";
 import { verifyToken } from "../utils/helper.js";
 
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.accesstoken;
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res
+      .status(401)
+      .json({ message: "Access token not found in headers" });
+  }
+  const token = authHeader.split(" ")[1];
   if (!token) {
     return res.status(401).json({
       message: "Access token not found",
@@ -28,6 +34,7 @@ const authMiddleware = async (req, res, next) => {
     }
 
     req.user = user;
+    console.log(req.user);
     next();
   } catch (error) {
     console.error("Auth middleware error:", error.message);

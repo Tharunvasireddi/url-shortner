@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../api/userapi.js";
 import { login } from "../store/slices/authSlice.js";
@@ -10,14 +10,15 @@ const LoginForm = ({ state }) => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
       const data = await loginUser(name, password);
-      dispatch(login(data.user));
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      dispatch(login(data));
       navigate({ to: "/dashboard" });
       setLoading(false);
     } catch (error) {

@@ -19,9 +19,9 @@ const app = express();
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV === "production"
-        ? "https://url-shortner-three-xi.vercel.app"
-        : "http://localhost:5173",
+      // process.env.NODE_ENV === "production"
+      "https://url-shortner-three-xi.vercel.app",
+    // "http://localhost:5173",
     credentials: true,
   })
 );

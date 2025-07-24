@@ -12,11 +12,10 @@ export const UrlForm = () => {
 
   const BASE_URL = "http://localhost:3000/api";
 
-
   useEffect(() => {
     const fetchUrls = async () => {
       try {
-        const data = await getUserUrls(customSlug);
+        const data = await getUserUrls();
         setAllUrls(data.data.data || []);
       } catch (error) {
         console.error("Failed to fetch URLs:", error);
@@ -28,7 +27,7 @@ export const UrlForm = () => {
   const handleSubmit = async () => {
     if (!url.trim()) return;
     try {
-      const short = await createShortUrl(url,customSlug);
+      const short = await createShortUrl(url, customSlug);
       setShortUrl(short);
       setCopied(false);
       setUrl("");

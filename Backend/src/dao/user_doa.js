@@ -7,7 +7,8 @@ const findUserByEmail = async (email) => {
 };
 
 const findUserById = async (id) => {
-  return await User.findById(id);
+  const user = await User.findById(id);
+  return user;
 };
 
 const findUserByName = async (name) => {
