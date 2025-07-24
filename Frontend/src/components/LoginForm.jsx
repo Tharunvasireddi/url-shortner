@@ -16,7 +16,6 @@ const LoginForm = ({ state }) => {
     setError("");
     try {
       const data = await loginUser(name, password);
-      console.log(data);
       localStorage.setItem("token", data.token);
       dispatch(login(data));
       navigate({ to: "/dashboard" });
