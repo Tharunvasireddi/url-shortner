@@ -20,9 +20,16 @@ const loginController = wrapAsync(async (req, res) => {
   });
 });
 
+const logoutController = wrapAsync(async (req, res) => {
+  res.clearCookie("accesstoken");
+  res.status(200).json({
+    message: " user logged out  successfully",
+  });
+});
+
 const get_current_user = wrapAsync(async (req, res) => {
   res.status(200).json({
     user: req.user,
   });
 });
-export { registerController, loginController, get_current_user };
+export { registerController, loginController, get_current_user, logoutController };
