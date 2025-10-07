@@ -9,6 +9,7 @@ const registerUser = async (name, email, password) => {
   if (isUserExisted) {
     throw new ConflictError("user already existed");
   }
+  console.log("this is rwegister controller")
   const newUser = await createUser(email, name, password);
   // Use consistent token payload structure with both id and name
   const token = await signToken({ id: newUser._id, name: newUser.name });

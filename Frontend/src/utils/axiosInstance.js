@@ -1,11 +1,15 @@
 import axios from "axios";
+
 const axiosInstance = axios.create({
   baseURL:
-    // import.meta.env.NODE_ENV === "production"
-     "https://url-shortner-8j2b.onrender.com",
-   //"http://localhost:3000",
-  timeout: 5000,
+    import.meta.env.VITE_NODE_ENV === "production" || import.meta.env.PROD
+      ? "https://url-shortner-8j2b.onrender.com"
+      : "http://localhost:3000",
+  timeout: 10000, // Increased timeout to 10 seconds
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 axiosInstance.interceptors.request.use(
@@ -14,62 +18,42 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log("Making request to:", config.baseURL + config.url);
     return config;
   },
   (error) => {
-    console.log("request error :", error);
+    console.log("Request error:", error);
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // Any status code within the range of 2xx
     return response;
   },
   (error) => {
     // Handle different types of errors
     if (error.response) {
-      // The server responded with a status code outside the 2xx range
       const { status, data } = error.response;
-      switch (status) {
-        case 400: // https://url-shortner-2zxk.vercel.app/
-          console.error("Bad Request:", data);
-          break;
-        case 401:
-          console.error("Unauthorized:", data);
-          // You could redirect to login page or refresh token here
-          break;
-        case 403:
-          console.error("Forbidden:", data);
-          break;
-        case 404:
-          console.error("Not Found:", data);
-          break;
-        case 500:
-          console.error("Server Error:", data);
-          break;
-        default:
-          console.error(`Error (${status}):`, data);
-      }
+      console.error(`HTTP Error (${status}):`, data);
     } else if (error.request) {
-      // The request was made but no response was received
-      console.error("Network Error: No response received", error.request);
+      console.error("Network Error: No response received");
+      console.error("Request details:", {
+        url: error.config?.url,
+        method: error.config?.method,
+        baseURL: error.config?.baseURL,
+      });
     } else {
-      // Something happened in setting up the request
-      console.error("Error:", error.message);
+      console.error("Request setup error:", error.message);
     }
 
-    // You can customize the error object before rejecting
     return Promise.reject({
-      // isAxiosError: true,
       message:
         error.response?.data?.message ||
         error.message ||
-        "Unknown error occurred",
+        "Network connection failed",
       status: error.response?.status,
       data: error.response?.data,
-      // originalError: error
     });
   }
 );

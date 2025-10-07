@@ -19,13 +19,13 @@ const authMiddleware = async (req, res, next) => {
     const decoded = verifyToken(token);
 
     // Now tokens consistently have both id and name, prefer finding by ID for better performance
-    if (!decoded.playLoad || !decoded.playLoad.id) {
+    if (!decoded.payLoad || !decoded.payLoad.id) {
       return res.status(401).json({
         message: "Invalid token structure",
       });
     }
 
-    const user = await findUserById(decoded.playLoad.id);
+    const user = await findUserById(decoded.p ayLoad.id);
 
     if (!user) {
       return res.status(401).json({

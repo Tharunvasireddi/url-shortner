@@ -3,7 +3,10 @@ import { User } from "../models/usermodel.js";
 import { hassPassword } from "../utils/hashpassword.js";
 
 const findUserByEmail = async (email) => {
-  return await User.findOne({ email });
+  console.log("dkjfhk;fh;f");
+  const isUserExisted = await User.findOne({ email: email });
+  console.log("this is user", isUserExisted);
+  return isUserExisted;
 };
 
 const findUserById = async (id) => {
