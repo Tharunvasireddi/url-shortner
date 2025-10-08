@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { createShortUrl } from "../api/creaeShortUrl-api";
 import { deleteUrl, getUserUrls } from "../api/userapi.js";
-import { Link2, Copy, Trash2, ExternalLink, Scissors, CheckCircle, AlertCircle, Plus, Globe } from "lucide-react";
+import {
+  Link2,
+  Copy,
+  Trash2,
+  ExternalLink,
+  Scissors,
+  CheckCircle,
+  AlertCircle,
+  Plus,
+  Globe,
+} from "lucide-react";
 
 export const UrlForm = () => {
   const [url, setUrl] = useState("");
@@ -15,6 +25,7 @@ export const UrlForm = () => {
   const [success, setSuccess] = useState("");
 
   const BASE_URL = "https://url-shortner-8j2b.onrender.com/api";
+  const Bass2 = "http://localhost:3000/api";
 
   useEffect(() => {
     const fetchUrls = async () => {
@@ -34,11 +45,11 @@ export const UrlForm = () => {
       setError("Please enter a valid URL");
       return;
     }
-    
+
     setLoading(true);
     setError("");
     setSuccess("");
-    
+
     try {
       const short = await createShortUrl(url, customSlug);
       setShortUrl(short);
@@ -84,7 +95,9 @@ export const UrlForm = () => {
           <Scissors className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">URL Shortener</h1>
-        <p className="text-gray-600">Transform long URLs into short, shareable links</p>
+        <p className="text-gray-600">
+          Transform long URLs into short, shareable links
+        </p>
       </div>
 
       {/* Main Form Card */}
@@ -114,7 +127,10 @@ export const UrlForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* URL Input */}
           <div>
-            <label htmlFor="url" className="block text-sm font-semibold text-gray-700 mb-2">
+            <label
+              htmlFor="url"
+              className="block text-sm font-semibold text-gray-700 mb-2"
+            >
               Enter your URL
             </label>
             <div className="relative">
@@ -136,7 +152,10 @@ export const UrlForm = () => {
 
           {/* Custom Slug Input */}
           <div>
-            <label htmlFor="customSlug" className="block text-sm font-semibold text-gray-700 mb-2">
+            <label
+              htmlFor="customSlug"
+              className="block text-sm font-semibold text-gray-700 mb-2"
+            >
               Custom Slug (optional)
             </label>
             <div className="relative">
@@ -153,7 +172,9 @@ export const UrlForm = () => {
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">Leave empty for auto-generated slug</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Leave empty for auto-generated slug
+            </p>
           </div>
 
           {/* Submit Button */}
@@ -199,99 +220,98 @@ export const UrlForm = () => {
                 {copied ? "Copied!" : "Copy"}
               </button>
             </div>
-        
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-            <input
-              type="text"
-              readOnly
-              value={`${shortUrl}`}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 break-all"
-            />
-            <button
-              onClick={() => handleCopy(`${BASE_URL}/${shortUrl}`)}
-              className={`px-4 py-2 rounded-md transition-colors duration-200 ${
-                copied
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-200 hover:bg-gray-300"
-              }`}
-            >
-              {copied ? "Copied!" : "Copy"}
-            </button>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <input
+                type="text"
+                readOnly
+                value={`${shortUrl}`}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 break-all"
+              />
+              <button
+                onClick={() => handleCopy(`${BASE_URL}/${shortUrl}`)}
+                className={`px-4 py-2 rounded-md transition-colors duration-200 ${
+                  copied
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              >
+                {copied ? "Copied!" : "Copy"}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
-      )}
-
-      {allUrls.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-lg font-bold mb-4 text-blue-700">
-            Your URL History
-          </h2>
-          <ul className="space-y-4">
-            {allUrls.map((item) => {
-              const fullShortUrl = `${BASE_URL}/${item.short_url}`;
-              return (
-                <li
-                  key={item._id}
-                  className="p-4 bg-gray-50 border border-gray-200 rounded-md space-y-3"
-                >
-                  <div>
-                    <div className="text-sm font-medium text-gray-600">
-                      Original URL:
-                    </div>
-                    <a
-                      href={item.full_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-700 underline break-words"
-                    >
-                      {item.full_url}
-                    </a>
-                  </div>
-
-                  <div>
-                    <div className="text-sm font-medium text-gray-600">
-                      Shortened URL:
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-wrap">
+        {allUrls.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-bold mb-4 text-blue-700">
+              Your URL History
+            </h2>
+            <ul className="space-y-4">
+              {allUrls.map((item) => {
+                const fullShortUrl = `${BASE_URL}/${item.short_url}`;
+                return (
+                  <li
+                    key={item._id}
+                    className="p-4 bg-gray-50 border border-gray-200 rounded-md space-y-3"
+                  >
+                    <div>
+                      <div className="text-sm font-medium text-gray-600">
+                        Original URL:
+                      </div>
                       <a
-                        href={fullShortUrl}
+                        href={item.full_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-green-700 underline break-all"
+                        className="text-blue-700 underline break-words"
                       >
-                        {fullShortUrl}
+                        {item.full_url}
                       </a>
-                      <button
-                        onClick={() => handleCopy(fullShortUrl, item._id)}
-                        className={`text-sm px-3 py-1 rounded-md transition-colors duration-200 ${
-                          copiedMap[item._id]
-                            ? "bg-green-500 text-white"
-                            : "bg-gray-200 hover:bg-gray-300"
-                        }`}
-                      >
-                        {copiedMap[item._id] ? "Copied!" : "Copy"}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(item._id)}
-                        className="text-sm px-4 py-2 rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition-colors duration-200"
-                      >
-                        Delete
-                      </button>
                     </div>
 
-                    <div className="mt-1 text-xs font-medium text-purple-600 bg-purple-100 w-fit px-2 py-1 rounded">
-                      🔁 Clicks: {item.clicks}
+                    <div>
+                      <div className="text-sm font-medium text-gray-600">
+                        Shortened URL:
+                      </div>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-wrap">
+                        <a
+                          href={fullShortUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-green-700 underline break-all"
+                        >
+                          {fullShortUrl}
+                        </a>
+                        <button
+                          onClick={() => handleCopy(fullShortUrl, item._id)}
+                          className={`text-sm px-3 py-1 rounded-md transition-colors duration-200 ${
+                            copiedMap[item._id]
+                              ? "bg-green-500 text-white"
+                              : "bg-gray-200 hover:bg-gray-300"
+                          }`}
+                        >
+                          {copiedMap[item._id] ? "Copied!" : "Copy"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(item._id)}
+                          className="text-sm px-4 py-2 rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition-colors duration-200"
+                        >
+                          Delete
+                        </button>
+                      </div>
+
+                      <div className="mt-1 text-xs font-medium text-purple-600 bg-purple-100 w-fit px-2 py-1 rounded">
+                        🔁 Clicks: {item.clicks}
+                      </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
-    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
