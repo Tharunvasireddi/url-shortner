@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 
-const hassPassword = async (password) => {
+const hashPassword = async (password) => {
   try {
     const hashedPassword = await argon2.hash(password);
     return hashedPassword;
@@ -20,4 +20,4 @@ const verifyPassword = async (storedPassword, enteredPassword) => {
     console.log("error at verify password ", error);
   }
 };
-export { hassPassword, verifyPassword };
+export { hashPassword, verifyPassword };

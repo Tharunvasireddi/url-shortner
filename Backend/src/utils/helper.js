@@ -7,9 +7,9 @@ const generateNanoId = (length) => {
   return nanoid(length);
 };
 
-const signToken = async (playLoad) => {
+const signToken = async (payload) => {
   return jwt.sign(
-    { playLoad },
+    { payload },
     process.env.JWT_SECRET_KEY,
     { expiresIn: "1h" },
     cookieOptions
